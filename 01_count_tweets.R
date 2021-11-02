@@ -12,10 +12,16 @@ tweetcounts <- count_all_tweets(
   n = 500
 )
 
+#reformat date
 tweetcounts$time <-
   parse_date_time(tweetcounts$start, orders = "ymd hms")
 
+#plot 
 tweetcounts %>% ggplot() +
   geom_line(aes(time, tweet_count))
+
+ggsave("images/hogmanay.png", 
+       width=200, height = 150, 
+       dpi=300, units="mm", bg = "white")
 
 saveRDS(tweetcounts, "data/tweetcounts_hogmanay.rds")

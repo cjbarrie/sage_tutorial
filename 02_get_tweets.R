@@ -13,4 +13,18 @@ tweetsblm <- get_all_tweets(
   n = 500
 )
 
+#get tidy format data
 tweetsblmb <- bind_tweets("data/json_data/", output_format = "tidy")
+
+#get tweet metrics
+tweet_metrics <- tweets$public_metrics
+
+#plot
+tweet_metrics %>%
+  ggplot() +
+  geom_histogram(aes(log(retweet_count)),
+                 binwidth = 1)
+
+ggsave("images/blm_retweets.png", 
+       width=200, height = 150, 
+       dpi=300, units="mm", bg = "white")
